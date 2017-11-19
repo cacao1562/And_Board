@@ -5,6 +5,8 @@ import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
 import android.support.v7.app.AppCompatActivity;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.Button;
 
 import com.google.firebase.auth.FirebaseAuth;
 
@@ -21,6 +23,15 @@ public class MainActivity extends AppCompatActivity {
 //        user.getDisplayName();
 //        user.getEmail();
         getFragmentManager().beginTransaction().replace(R.id.mainActivity_framelayout, new ListFragment()).commit();
+
+        Button logout = (Button) findViewById(R.id.mainActivity_logOut_button);
+        logout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                FirebaseAuth.getInstance().signOut();
+                finish();
+            }
+        });
 
         BottomNavigationView bottomNavigationView = (BottomNavigationView) findViewById(R.id.mainActivity_bottomnavigationView);
         bottomNavigationView.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {

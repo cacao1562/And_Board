@@ -33,6 +33,7 @@ public class LoginActivity extends AppCompatActivity implements GoogleApiClient.
         setContentView(R.layout.activity_login);
         mAuth = FirebaseAuth.getInstance(); //싱글톤패턴
 
+
         GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
                 .requestIdToken(getString(R.string.default_web_client_id))
                 .requestEmail()
@@ -50,6 +51,7 @@ public class LoginActivity extends AppCompatActivity implements GoogleApiClient.
         button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+
                 Intent signInIntent = Auth.GoogleSignInApi.getSignInIntent(mGoogleApiClient);
                 startActivityForResult(signInIntent, RC_SIGN_IN);
             }
@@ -67,7 +69,7 @@ public class LoginActivity extends AppCompatActivity implements GoogleApiClient.
                 // Google Sign In was successful, authenticate with Firebase
                 GoogleSignInAccount account = result.getSignInAccount();
                 firebaseAuthWithGoogle(account);
-
+                Toast.makeText(LoginActivity.this, "로그인중 입니다..", Toast.LENGTH_SHORT).show();
             } else {
                 // Google Sign In failed, update UI appropriately
                 // ...
@@ -99,9 +101,6 @@ public class LoginActivity extends AppCompatActivity implements GoogleApiClient.
                 });
     }
 
-    private void createUser (String email, String password) {
-
-    }
 
 
     @Override

@@ -19,7 +19,6 @@
         <activity android:name=".MainActivity" />
         <activity android:name=".LoginActivity" />
         <activity android:name=".Main2Activity"></activity>
-        <activity android:name=".BaseActivity"></activity>
     </application>
 
 </manifest>
