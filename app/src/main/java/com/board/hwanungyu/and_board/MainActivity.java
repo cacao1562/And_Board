@@ -7,12 +7,20 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
+import android.widget.Toast;
 
+import com.google.android.gms.auth.api.Auth;
+import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
+import com.google.android.gms.common.ConnectionResult;
+import com.google.android.gms.common.api.GoogleApiClient;
+import com.google.android.gms.common.api.ResultCallback;
+import com.google.android.gms.common.api.Status;
 import com.google.firebase.auth.FirebaseAuth;
 
 public class MainActivity extends AppCompatActivity {
 
     private FirebaseAuth mAuth;
+    private GoogleApiClient mGoogleApiClient;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -24,11 +32,31 @@ public class MainActivity extends AppCompatActivity {
 //        user.getEmail();
         getFragmentManager().beginTransaction().replace(R.id.mainActivity_framelayout, new ListFragment()).commit();
 
+        // GoogleSignInOptions 개체 구성
+        GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
+                .requestIdToken(getString(R.string.default_web_client_id))
+                .requestEmail()
+                .build();
+
+// Build a GoogleApiClient with access to the Google Sign-In API and the options specified by gso.
+        mGoogleApiClient = new GoogleApiClient.Builder(this)
+                .enableAutoManage(this, new GoogleApiClient.OnConnectionFailedListener() {
+                    @Override
+                    public void onConnectionFailed(@NonNull ConnectionResult connectionResult) {
+                        //DebugLog.logD(TAG, "Login fail");
+                    }
+                })
+                .addApi(Auth.GOOGLE_SIGN_IN_API, gso)
+                .build();
+
+
+        mAuth = FirebaseAuth.getInstance();
+
         Button logout = (Button) findViewById(R.id.mainActivity_logOut_button);
         logout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                FirebaseAuth.getInstance().signOut();
+                signOut();
                 finish();
             }
         });
@@ -51,4 +79,68 @@ public class MainActivity extends AppCompatActivity {
         });
 
     }
+
+    private void signOut() {
+        mAuth.signOut();
+        Auth.GoogleSignInApi.signOut(mGoogleApiClient).setResultCallback(
+                new ResultCallback<Status>() {
+                    @Override
+                    public void onResult(@NonNull Status status) {
+                        Toast.makeText(MainActivity.this, "로그아웃 성공", Toast.LENGTH_SHORT).show();
+                    }
+                });
+    }
+
+//    public void signOut() {
+//
+//        mGoogleApiClient.connect();
+//        mGoogleApiClient.registerConnectionCallbacks(new GoogleApiClient.ConnectionCallbacks() {
+//
+//            @Override
+//            public void onConnected(@Nullable Bundle bundle) {
+//
+//                mAuth.signOut();
+//                if (mGoogleApiClient.isConnected()) {
+//
+//                    Auth.GoogleSignInApi.signOut(mGoogleApiClient).setResultCallback(new ResultCallback<Status>() {
+//
+//                        @Override
+//                        public void onResult(@NonNull Status status) {
+//
+//                            if (status.isSuccess()) {
+//
+//                                //DebugLog.logD(TAG, "User Logged out");
+//                                //setResult(ResultCode.SIGN_OUT_SUCCESS);
+//                                Toast.makeText(MainActivity.this, "sign out success", Toast.LENGTH_SHORT).show();
+//                            } else {
+//
+//                                //setResult(ResultCode.SIGN_OUT_FAIL);
+//                                Toast.makeText(MainActivity.this, "sign out fail", Toast.LENGTH_SHORT).show();
+//                            }
+//
+//                            //hideProgressDialog();
+//                            finish();
+//                        }
+//                    });
+//                }
+//            }
+//
+//            @Override
+//            public void onConnectionSuspended(int i) {
+//
+//                //DebugLog.logD(TAG, "Google API Client Connection Suspended");
+//
+//                //setResult(ResultCode.SIGN_OUT_FAIL);
+//                //hideProgressDialog();
+//                Toast.makeText(MainActivity.this, "sign out fail", Toast.LENGTH_SHORT).show();
+//                finish();
+//            }
+//        });
+//    }
+
+
+
+
+
+
 }

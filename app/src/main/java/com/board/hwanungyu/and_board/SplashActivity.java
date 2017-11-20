@@ -40,7 +40,7 @@ public class SplashActivity extends AppCompatActivity {
 
         mFirebaseRemoteConfig.setDefaults(R.xml.default_config);
 
-        mFirebaseRemoteConfig.fetch(0)
+        mFirebaseRemoteConfig.fetch(0) //time 0초마다 요청
                 .addOnCompleteListener(this, new OnCompleteListener<Void>() {
                     @Override
                     public void onComplete(@NonNull Task<Void> task) {

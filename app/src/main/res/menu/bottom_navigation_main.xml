@@ -3,7 +3,7 @@
 
     <item
         android:id="@+id/action_list"
-        android:icon="@drawable/ic_people_black_24dp"
+        android:icon="@drawable/ic_format_list_bulleted_black_24dp"
         android:title="List"/>
     <item
         android:id="@+id/action_upload"
@@ -11,6 +11,6 @@
         android:title="Upload"/>
     <item
         android:id="@+id/action_account"
-        android:icon="@drawable/ic_format_list_bulleted_black_24dp"
+        android:icon="@drawable/ic_people_black_24dp"
         android:title="Account"/>
 </menu>

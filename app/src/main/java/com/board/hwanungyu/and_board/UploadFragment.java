@@ -69,7 +69,9 @@ public class UploadFragment extends Fragment{
                                     //Fragment에서 토스트 getActivity
                     return;
                 }
-
+                message.setText("");
+                sendbtn.setEnabled(false);
+                Toast.makeText(getActivity(), "업로드 중입니다..", Toast.LENGTH_SHORT).show();
 
                 FirebaseStorage.getInstance().getReference().child("userImage/"+imageUri.getLastPathSegment()).putFile(imageUri).addOnCompleteListener(new OnCompleteListener<UploadTask.TaskSnapshot>() {
                     @Override
@@ -91,10 +93,14 @@ public class UploadFragment extends Fragment{
                                 Toast.makeText(getActivity(), "등록 완료", Toast.LENGTH_SHORT).show();
                                 //finish();
                                 getFragmentManager().beginTransaction().replace(R.id.mainActivity_framelayout, new ListFragment()).commit();
+
                             }
                         });
+
                     }
                 });
+
+
 
             }
 

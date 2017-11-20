@@ -67,6 +67,7 @@ public class ListFragment extends Fragment{
 
                         notifyDataSetChanged(); //갱신
                         recyclerView.scrollToPosition(0);
+
                         //맨 마지막으로 이동
 
                     }

@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="vertical" android:layout_width="match_parent"
-    android:layout_height="430dp">
+    android:layout_height="460dp">
 
 
     <LinearLayout
@@ -35,15 +35,15 @@
         <ImageView
 
             android:id="@+id/listItem_Imageview"
-            android:layout_width="300dp"
+            android:layout_width="match_parent"
             android:layout_height="300dp"
-            android:layout_gravity="center"
+
             />
 
         <TextView
             android:id="@+id/listItem_textView_message"
             android:layout_width="300dp"
-            android:layout_height="60dp"
+            android:layout_height="85dp"
             android:layout_gravity="center"
             android:text="텍스트 설명"
             android:textSize="15dp"/>

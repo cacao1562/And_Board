@@ -16,8 +16,8 @@
         android:layout_marginTop="10dp"
         android:layout_width="match_parent"
         android:layout_height="100dp"
-        android:lines="5"
-        android:textSize="10dp"/>
+        android:textSize="13dp"
+        android:hint="  텍스트를 입력하세요."/>
 
     <Button
         android:id="@+id/fragment_upload_send"
