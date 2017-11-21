@@ -2,14 +2,15 @@ package com.board.hwanungyu.and_board;
 
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.graphics.Color;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.view.WindowManager;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 
+import com.bumptech.glide.Glide;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.remoteconfig.FirebaseRemoteConfig;
@@ -31,6 +32,8 @@ public class SplashActivity extends AppCompatActivity {
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,WindowManager.LayoutParams.FLAG_FULLSCREEN);
 
         linearLayout = (LinearLayout)findViewById(R.id.SplashActivity_LinearLayout);
+        ImageView imageView = (ImageView)findViewById(R.id.SplashActivity_imageView);
+        Glide.with(this).load(R.drawable.icon_sandglass).into(imageView);
 
         mFirebaseRemoteConfig = FirebaseRemoteConfig.getInstance();
         FirebaseRemoteConfigSettings configSettings = new FirebaseRemoteConfigSettings.Builder()
@@ -39,6 +42,7 @@ public class SplashActivity extends AppCompatActivity {
         mFirebaseRemoteConfig.setConfigSettings(configSettings);
 
         mFirebaseRemoteConfig.setDefaults(R.xml.default_config);
+
 
         mFirebaseRemoteConfig.fetch(0) //time 0초마다 요청
                 .addOnCompleteListener(this, new OnCompleteListener<Void>() {
@@ -62,7 +66,7 @@ public class SplashActivity extends AppCompatActivity {
         String splash_message = mFirebaseRemoteConfig.getString("splash_message");
 
 
-        linearLayout.setBackgroundColor(Color.parseColor(splash_background));
+        //linearLayout.setBackgroundColor(Color.parseColor(splash_background));
 
         if(caps) {
             AlertDialog.Builder builder = new AlertDialog.Builder(this);

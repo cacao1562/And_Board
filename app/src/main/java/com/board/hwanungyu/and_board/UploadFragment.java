@@ -69,8 +69,7 @@ public class UploadFragment extends Fragment{
                                     //Fragment에서 토스트 getActivity
                     return;
                 }
-                message.setText("");
-                sendbtn.setEnabled(false);
+
                 Toast.makeText(getActivity(), "업로드 중입니다..", Toast.LENGTH_SHORT).show();
 
                 FirebaseStorage.getInstance().getReference().child("userImage/"+imageUri.getLastPathSegment()).putFile(imageUri).addOnCompleteListener(new OnCompleteListener<UploadTask.TaskSnapshot>() {
@@ -80,6 +79,7 @@ public class UploadFragment extends Fragment{
                         String imageUrl = task.getResult().getDownloadUrl().toString();
 
 
+                        sendbtn.setEnabled(false);
 
                         DataModel.Dataset dataset = new DataModel.Dataset();
                         dataset.username = userName;
@@ -118,4 +118,6 @@ public class UploadFragment extends Fragment{
             imageUri = data.getData();  //이미지 경로 원본 string
         }
     }
+
+
 }

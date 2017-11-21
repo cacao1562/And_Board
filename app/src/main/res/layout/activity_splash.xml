@@ -6,10 +6,12 @@
     android:layout_height="match_parent"
     tools:context="com.board.hwanungyu.and_board.SplashActivity"
     android:gravity="center"
-    android:id="@+id/SplashActivity_LinearLayout">
+    android:id="@+id/SplashActivity_LinearLayout"
+    android:background="@android:color/white">
 
     <ImageView
-        android:src="@drawable/loading_icon"
+        android:id="@+id/SplashActivity_imageView"
+
         android:layout_width="wrap_content"
         android:layout_height="wrap_content" />
 </LinearLayout>

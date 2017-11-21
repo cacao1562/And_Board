@@ -107,7 +107,7 @@ public class ListFragment extends Fragment{
             customViewHoler.textView_message.setText(dataModels.get(position).message);
             Glide.with(holder.itemView.getContext()) //이미지
                     .load(dataModels.get(position).imgaeUrl)
-                    .apply(new RequestOptions().placeholder(R.drawable.image_loading))
+                    .apply(new RequestOptions().placeholder(R.drawable.loading_icon))
                     .into(customViewHoler.imageView);
             long unixTime = (long) dataModels.get(position).timestamp;
             Date date = new Date(unixTime);
